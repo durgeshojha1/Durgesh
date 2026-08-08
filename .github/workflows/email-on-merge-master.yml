@@ -19,13 +19,13 @@ jobs:
           secure: true
 
           # Auth
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
+          username: ${{ secrets.GMAIL_USERNAME }}
+          password: ${{ secrets.GMAIL_PASSWORD }}
 
           # Email details
           subject: "Code merged into master in ${{ github.repository }}"
           to: "durgesh.ojha1@gmail.com"
-          from: "GitHub Actions <${{ secrets.MAIL_USERNAME }}>"
+          from: "GitHub Actions <${{ secrets.GMAIL_USERNAME }}>"
           body: |
             A new commit has been pushed to the master branch.
 
