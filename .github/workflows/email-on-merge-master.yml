@@ -1,0 +1,38 @@
+name: Email on master merge
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  send_email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send email via SMTP
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # SMTP server config for Gmail
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+
+          # Auth
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+
+          # Email details
+          subject: "Code merged into master in ${{ github.repository }}"
+          to: "durgesh.ojha1@gmail.com"
+          from: "GitHub Actions <${{ secrets.MAIL_USERNAME }}>"
+          body: |
+            A new commit has been pushed to the master branch.
+
+            Repository: ${{ github.repository }}
+            Pusher:     ${{ github.actor }}
+            Commit:     ${{ github.sha }}
+            Message:    ${{ github.event.head_commit.message }}
+
+            View the commit at:
+            https://github.com/${{ github.repository }}/commit/${{ github.sha }}
